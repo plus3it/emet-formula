@@ -1,14 +1,10 @@
-# emet-formula
-====
-emet
-====
+#emet
 
 This salt formula will install Microsoft Enhanced Mitigation Experience Toolkit
 (EMET). Local Group Policy Object (LGPO) files will be updated so that EMET can
 be managed from the Local Group Policy Editor (i.e. gpedit.msc).
 
-Dependencies
-============
+##Dependencies
   - Microsoft .NET 4 or greater.
   - Properly configured salt winrepo package manager, in a master or 
     masterless configuration.
@@ -16,24 +12,16 @@ Dependencies
     winrepo database.
     - https://github.com/saltstack/salt-winrepo/blob/master/emet.sls
 
-Available States
-================
+##Available States
 
-.. contents::
-    :local:
-
-``emet``
---------
+###emet
 
 Install Microsoft Enhanced Mitigation Experience Toolkit (EMET)
 
-Configuration
-=============
+##Configuration
 Every option available in the EMET formula can be set in pillar. The default
 settings in pillar.example are the same as the default settings in the formula.
 Below is an example pillar configuration.
-
-..
 
     emet:
       lookup:
@@ -41,8 +29,7 @@ Below is an example pillar configuration.
         emet_admx_source: 'salt://emet/emetfiles/EMET.admx'
         emet_adml_source: 'salt://emet/emetfiles/EMET.adml'
 
-TODO
-====
+##TODO
  - [ ] Write a .NET formula that can be included sanely, while avoiding 
        unnecessary downloads and installs, and accounting for the odd .NET 
        deltas across different versions of the Microsoft OS. For example, .NET 
