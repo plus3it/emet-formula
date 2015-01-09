@@ -2,7 +2,7 @@
 {% set systemroot = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot') %}
 
 #Define lookup dictionary with default settings for the EMET formula
-{% set settings = { 'emet_version'     : '5.1',,
+{% set settings = { 'emet_version'     : '5.1',
                     'emet_admx_source' : 'salt://emet/emetfiles/EMET.admx',
                     'emet_adml_source' : 'salt://emet/emetfiles/EMET.adml',
 } %}
