@@ -10,8 +10,17 @@
 %}
 
 #Make sure minimum required .NET version is available before installing EMET
-{% if dotNET_version[:1] | int >= emet.min_dotNET_version | int %}
-#Install EMET and update LGPO files
+{% if dotNET_version[:1] | int < emet.min_dotNET_version | int %}
+#Fail due to missing .NET prerequisite
+prereq_dotNET_{{ emet.min_dotNET_version | string }}:
+  test.configurable_test_state:
+    - name: '.NET {{ emet.min_dotNET_version | string }} prerequisite'
+    - changes: False
+    - result: False
+    - comment: 'EMET {{ emet.version | string }} requires .NET {{ emet.min_dotNET_version | string }} or later. Detected .NET version: {{ dotNET_version | string }}'
+
+{% else %}
+#Passed prereqs, Install EMET and update LGPO files
 Emet:
   pkg.installed:
     - version: {{ emet.version }}
@@ -30,12 +39,4 @@ EMET.adml:
     - require:
       - pkg: Emet
 
-{% else %}
-#Fail due to missing .NET prerequisite
-prereq_dotNET_{{ emet.min_dotNET_version | string }}:
-  test.configurable_test_state:
-    - name: '.NET {{ emet.min_dotNET_version | string }} prerequisite'
-    - changes: False
-    - result: False
-    - comment: 'EMET {{ emet.version | string }} requires .NET {{ emet.min_dotNET_version | string }} or later. Detected .NET version: {{ dotNET_version | string }}'
 {% endif %}
