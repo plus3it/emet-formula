@@ -1,21 +1,23 @@
 {% from "emet/map.jinja" import emet with context %}
 
-#This sls file will install Microsoft Enhanced Mitigation Experience Toolkit (EMET).
-#Local Group Policy Object (LGPO) files will be updated so that EMET can be managed
-#from the Local Group Policy Editor (i.e. gpedit.msc).
+# This sls file will install Microsoft Enhanced Mitigation Experience Toolkit 
+# (EMET). Local Group Policy Object (LGPO) files will be updated so that EMET 
+# can be managed from the Local Group Policy Editor (i.e. gpedit.msc).
 
 #Dependencies:
-#  - Microsoft .NET 4 or greater
-#  - Properly configured salt winrepo, in a master or masterless configuration
-#  - Package definition for EMET from salt-winrepo must be available in the winrepo database
+#  - Microsoft .NET 4 or greater.
+#  - Properly configured salt winrepo package manager, in a master or 
+#    masterless configuration.
+#  - Package definition for EMET from salt-winrepo must be available in the 
+#    winrepo database.
 #    - https://github.com/saltstack/salt-winrepo/blob/master/emet.sls
 
 #TODO:
-# - Write a .NET formula that can be included sanely, while avoiding unnecessary downloads
-#   and installs, and accounting for the odd .NET deltas across different versions of the 
-#   Microsoft OS. For example, .NET 4.5.x will never show up in "installed software" on 
-#   Windows 2012 R2, but it does on earlier versions. This largely breaks the salt winrepo
-#   functionality.
+# - Write a .NET formula that can be included sanely, while avoiding 
+#   unnecessary downloads and installs, and accounting for the odd .NET deltas 
+#   across different versions of the Microsoft OS. For example, .NET 4.5.x will 
+#   never show up in "installed software" on Windows 2012 R2, but it does on 
+#   earlier versions. This largely breaks the salt winrepo functionality.
 
 #Get the latest installed version of .NET
 {% set dotNET_version = salt['cmd.run'](
@@ -26,7 +28,7 @@
   shell='powershell') 
 %}
 
-#Make sure minimum required .NET version is available before installing EMET
+#Check if minimum required .NET version is available
 {% if dotNET_version[:1] | int < emet.min_dotNET_version | int %}
 #Fail due to missing .NET prerequisite
 prereq_dotNET_{{ emet.min_dotNET_version | string }}:
