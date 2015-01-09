@@ -6,6 +6,7 @@ be managed from the Local Group Policy Editor (i.e. gpedit.msc).
 
 ##Dependencies
   - Microsoft .NET 4 or greater.
+  - Salt 2014.7.0 or greater (required for the 'test' state).
   - Properly configured salt winrepo package manager, in a master or 
     masterless configuration.
   - Package definition for EMET from salt-winrepo must be available in the 
