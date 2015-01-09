@@ -2,9 +2,10 @@
 {% set systemroot = salt['reg.read_key']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot') %}
 
 #Define lookup dictionary with default settings for the EMET formula
-{% set settings = { 'emet_version'     : '5.1',
-                    'emet_admx_source' : 'salt://emet/emetfiles/EMET.admx',
-                    'emet_adml_source' : 'salt://emet/emetfiles/EMET.adml',
+{% set settings = { 
+    'emet_version'     : '5.1',
+    'emet_admx_source' : 'salt://emet/emetfiles/EMET.admx',
+    'emet_adml_source' : 'salt://emet/emetfiles/EMET.adml',
 } %}
 
 #Define lookup dictionary of EMET version dependencies
@@ -17,10 +18,11 @@
 {% do settings.update(salt['pillar.get']('emet:lookup')) %}
 
 #Define the dictionary to return to the emet sls file
-{% set emet = { 'admx_name'          : systemroot + '\\PolicyDefinitions\\EMET.admx',
-                'admx_source'        : settings['emet_admx_source'],
-                'adml_name'          : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
-                'adml_source'        : settings['emet_adml_source']',
-                'version'            : settings['emet_version'],
-                'min_dotNET_version' : dependencies[settings['emet_version']]['min_dotNET_version'],
+{% set emet = { 
+    'admx_name'          : systemroot + '\\PolicyDefinitions\\EMET.admx',
+    'admx_source'        : settings['emet_admx_source'],
+    'adml_name'          : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
+    'adml_source'        : settings['emet_adml_source']',
+    'version'            : settings['emet_version'],
+    'min_dotNET_version' : dependencies[settings['emet_version']]['min_dotNET_version'],
 } %}
