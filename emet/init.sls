@@ -21,30 +21,38 @@
 #   earlier versions. This largely breaks the salt winrepo functionality.
 
 #Get the latest installed version of .NET
-{% set dotNET_version = salt['cmd.run'](
-  '(Get-ChildItem "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" -recurse | \
-    Get-ItemProperty -name Version -EA 0 | \
+{% set dotnet_version = salt['cmd.run'](
+  '(Get-ChildItem "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" \
+    -recurse | Get-ItemProperty -name Version -EA 0 | \
     Where { $_.PSChildName -match "^(?!S)\p{L}"} | \
     Select Version | Sort -Descending Version | Select -First 1).Version', 
   shell='powershell') 
 %}
 
 #Check if minimum required .NET version is available
-{% if dotNET_version[:1] | int < emet.min_dotNET_version | int %}
-#Fail due to missing .NET prerequisite
-prereq_dotNET_{{ emet.min_dotNET_version | string }}:
+#Fail if missing .NET prerequisite
+prereq_dotnet_{{ emet.min_dotNET_version | string }}:
   test.configurable_test_state:
     - name: '.NET {{ emet.min_dotNET_version | string }} prerequisite'
     - changes: False
+{% if dotnet_version[:1] | int < emet.min_dotNET_version | int %}
     - result: False
-    - comment: 'EMET {{ emet.version | string }} requires .NET {{ emet.min_dotNET_version | string }} or later. Detected .NET version: {{ dotNET_version | string }}'
-
+    - comment: 'EMET {{ emet.version | string }} requires .NET 
+                {{ emet.min_dotNET_version | string }} or later. Detected .NET 
+                version: {{ dotnet_version | string }}'
 {% else %}
-#Passed prereqs, Install EMET and update LGPO files
+    - result: True
+    - comment: '.NET version {{ dotnet_version }} meets minimum requirement 
+                for EMET {{ emet.version }}'
+{% endif %}
+
+#Install EMET and update LGPO files
 install_emet:
   pkg.installed:
     - name: 'Emet'
     - version: {{ emet.version }}
+    - require:
+      - test: prereq_dotnet_{{ emet.min_dotNET_version | string }}
 
 EMET.admx:
   file.managed:
@@ -59,5 +67,3 @@ EMET.adml:
     - source: {{ emet.adml_source }}
     - require:
       - pkg: install_emet
-
-{% endif %}

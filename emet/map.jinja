@@ -10,7 +10,7 @@
 
 #Define lookup dictionary of EMET version dependencies
 {% set dependencies = { 
-    '5.1' : { 'min_dotNET_version' : 4,
+    '5.1' : { 'min_dotnet_version' : 4,
             },
 } %}
 
@@ -24,5 +24,5 @@
     'adml_name'          : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
     'adml_source'        : settings['emet_adml_source'],
     'version'            : settings['emet_version'],
-    'min_dotNET_version' : dependencies[settings['emet_version']]['min_dotNET_version'],
+    'min_dotnet_version' : dependencies[settings['emet_version']]['min_dotnet_version'],
 } %}
