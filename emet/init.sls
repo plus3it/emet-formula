@@ -31,7 +31,7 @@
 
 #Check if minimum required .NET version is available
 #Fail if missing .NET prerequisite
-prereq_dotnet_{{ emet.min_dotnet_version | string }}:
+emet_prereq_dotnet_{{ emet.min_dotnet_version | string }}:
   test.configurable_test_state:
     - name: '.NET {{ emet.min_dotnet_version | string }} prerequisite'
     - changes: False
@@ -52,7 +52,7 @@ install_emet:
     - name: 'Emet'
     - version: {{ emet.version }}
     - require:
-      - test: prereq_dotnet_{{ emet.min_dotnet_version | string }}
+      - test: emet_prereq_dotnet_{{ emet.min_dotnet_version | string }}
 
 EMET.admx:
   file.managed:
