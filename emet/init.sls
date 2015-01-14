@@ -31,14 +31,14 @@
 
 #Check if minimum required .NET version is available
 #Fail if missing .NET prerequisite
-prereq_dotnet_{{ emet.min_dotNET_version | string }}:
+prereq_dotnet_{{ emet.min_dotnet_version | string }}:
   test.configurable_test_state:
-    - name: '.NET {{ emet.min_dotNET_version | string }} prerequisite'
+    - name: '.NET {{ emet.min_dotnet_version | string }} prerequisite'
     - changes: False
-{% if dotnet_version[:1] | int < emet.min_dotNET_version | int %}
+{% if dotnet_version[:1] | int < emet.min_dotnet_version | int %}
     - result: False
     - comment: 'EMET {{ emet.version | string }} requires .NET 
-                {{ emet.min_dotNET_version | string }} or later. Detected .NET 
+                {{ emet.min_dotnet_version | string }} or later. Detected .NET 
                 version: {{ dotnet_version | string }}'
 {% else %}
     - result: True
@@ -52,7 +52,7 @@ install_emet:
     - name: 'Emet'
     - version: {{ emet.version }}
     - require:
-      - test: prereq_dotnet_{{ emet.min_dotNET_version | string }}
+      - test: prereq_dotnet_{{ emet.min_dotnet_version | string }}
 
 EMET.admx:
   file.managed:
