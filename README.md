@@ -26,9 +26,9 @@ Below is an example pillar configuration.
 
     emet:
       lookup:
-        emet_version: '5.1'
-        emet_admx_source: 'salt://emet/emetfiles/EMET.admx'
-        emet_adml_source: 'salt://emet/emetfiles/EMET.adml'
+        version: '5.1'
+        admx_source: 'salt://emet/emetfiles/EMET.admx'
+        adml_source: 'salt://emet/emetfiles/EMET.adml'
 
 ##TODO
  - [ ] Write a .NET formula that can be included sanely, while avoiding 
