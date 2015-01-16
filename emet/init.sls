@@ -13,6 +13,7 @@
 #    winrepo database.
 #    - https://github.com/saltstack/salt-winrepo/blob/master/emet.sls
 
+#Check whether .NET is installed and meets the compatibility requirement
 emet_prereq_dotnet_{{ emet.dotnet_compatibility | join('_') }}:
   cmd.run:
     - name: '
