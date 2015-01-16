@@ -15,13 +15,30 @@
 
 emet_prereq_dotnet_{{ emet.dotnet_compatibility | join('_') }}:
   cmd.run:
-    - name: 'if ( @( @( {{ emet.dotnet_compatibility | join(',') }} ) | where { ( 
-            ( Get-ChildItem "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" 
-            -recurse | Get-ItemProperty -name Version -EA 0 | Where { 
-            $_.PSChildName -match "^(?!S)\p{L}" } | Select Version | Sort 
-            -Unique) | foreach-object { $_.Version.Substring(0,1) } ) -contains 
-            $_ } ).Count) { echo ".NET requirement satisfied."; exit 0 } 
-            else { echo "Failed .NET requirement."; exit 1 }'
+    - name: '
+      if ( 
+        @( 
+          @( {{ emet.dotnet_compatibility | join(',') }} ) | 
+            where { 
+              ( ( Get-ChildItem 
+                    "HKLM:\\SOFTWARE\\Microsoft\\NET Framework Setup\\NDP" 
+                    -recurse | 
+                  Get-ItemProperty -name Version -EA 0 | 
+                  where { $_.PSChildName -match "^(?!S)\p{L}" } | 
+                  Select Version | 
+                  Sort -Unique 
+                ) | 
+                foreach-object { $_.Version.Substring(0,1) } 
+              ) 
+              -contains 
+              $_ 
+            } 
+        ).Count
+      ) { 
+        echo ".NET requirement satisfied."; exit 0 
+      } else { 
+        echo "Failed .NET requirement."; exit 1 
+      }'
     - shell: 'powershell'
 
 #Install EMET and update LGPO files
