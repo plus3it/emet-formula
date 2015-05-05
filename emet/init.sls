@@ -47,6 +47,7 @@ install_emet:
   pkg.installed:
     - name: 'Emet'
     - version: {{ emet.version }}
+    - allow_updates: True
     - require:
       - cmd: emet_prereq_dotnet_{{ emet.dotnet_compatibility | join('_') }}
 
