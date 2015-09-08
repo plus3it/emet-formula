@@ -326,7 +326,7 @@
           </value>
         </item>
 
-		<!-- Java 6,7 -->
+		<!-- Java 6,7,8 -->
         <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="jre6_java">
           <value>
             <string>*\Java\jre6\bin\java.exe -HeapSpray</string>
@@ -357,7 +357,21 @@
             <string>*\Java\jre7\bin\javaws.exe -HeapSpray</string>
           </value>
         </item>
-		
+        <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="jre8_java">
+          <value>
+            <string>*\Java\jre1.8*\bin\java.exe -HeapSpray</string>
+          </value>
+        </item>
+        <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="jre8_javaw">
+          <value>
+            <string>*\Java\jre1.8*\bin\javaw.exe -HeapSpray</string>
+          </value>
+        </item>
+        <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="jre8_javaws">
+          <value>
+            <string>*\Java\jre1.8*\bin\javaws.exe -HeapSpray</string>
+          </value>
+        </item>		
       </enabledList>
        </policy>
 
@@ -456,6 +470,11 @@
         <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="Opera">
           <value>
             <string>*\Opera\opera.exe</string>
+          </value>
+        </item>
+        <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="Opera_New_Versions">
+          <value>
+            <string>*\Opera\*\opera.exe</string>
           </value>
         </item>
         <item key="Software\Policies\Microsoft\EMET\Defaults" valueName="WinRARGUI">
