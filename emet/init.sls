@@ -45,7 +45,7 @@ emet_prereq_dotnet_{{ emet.dotnet_compatibility | join('_') }}:
 #Install EMET and update LGPO files
 install_emet:
   pkg.installed:
-    - name: 'Emet'
+    - name: 'emet'
     - version: {{ emet.version }}
     - allow_updates: True
     - require:
