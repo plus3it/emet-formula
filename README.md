@@ -27,7 +27,7 @@ Below is an example pillar configuration.
 ```
     emet:
       lookup:
-        version: '5.1'
+        version: '5.2'
         admx_source: 'salt://emet/emetfiles/EMET.admx'
         adml_source: 'salt://emet/emetfiles/EMET.adml'
 ```
