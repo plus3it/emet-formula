@@ -22,10 +22,13 @@ adml_source: 'salt://emet/emetfiles/EMET.adml'
 {% do emet.update(dependencies[emet['version']]) %}
 
 #Get the SYSTEMROOT value from the registry
-{% set systemroot = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot').vdata %}
+{% set systemroot = salt['reg.read_value'](
+    'HKEY_LOCAL_MACHINE',
+    'SOFTWARE\Microsoft\Windows NT\CurrentVersion',
+    'SystemRoot').vdata %}
 
 # Update emet settings with required filename locations
-{% do emet.update({ 
-    'admx_name'          : systemroot + '\\PolicyDefinitions\\EMET.admx',
-    'adml_name'          : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
+{% do emet.update({
+    'admx_name' : systemroot + '\\PolicyDefinitions\\EMET.admx',
+    'adml_name' : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
 }) %}
