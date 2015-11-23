@@ -6,10 +6,10 @@ be managed from the Local Group Policy Editor (i.e. gpedit.msc).
 
 ## Dependencies
 - Microsoft .NET 4 or greater.
-- Salt 2014.7.0 or greater (required for the 'test' state).
-- Properly configured salt winrepo package manager, in a master or 
+- Salt 2015.8.0 or greater (required for templating the winrepo package).
+- Properly configured salt winrepo package manager, in a master or
 masterless configuration.
-- Package definition for EMET from salt-winrepo must be available in the 
+- Package definition for EMET from salt-winrepo must be available in the
 winrepo database.
     - https://github.com/saltstack/salt-winrepo/blob/master/emet.sls
 
@@ -27,7 +27,7 @@ Below is an example pillar configuration.
 ```
     emet:
       lookup:
-        version: '5.1'
+        version: '5.2'
         admx_source: 'salt://emet/emetfiles/EMET.admx'
         adml_source: 'salt://emet/emetfiles/EMET.adml'
 ```

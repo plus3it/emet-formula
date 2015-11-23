@@ -1,6 +1,7 @@
-#Settings configured in pillar will override default settings specified in map.jinja
+# Settings configured in pillar will override default settings specified in
+# map.jinja.
 emet:
   lookup:
-    version: '5.1'
+    version: '5.2'
     admx_source: 'salt://emet/emetfiles/EMET.admx'
     adml_source: 'salt://emet/emetfiles/EMET.adml'

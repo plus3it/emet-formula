@@ -1,17 +1,19 @@
 # Initialize 'emet' dictionary with default settings for the EMET formula
-{% set emet = { 
-    'version'     : '5.1',
-    'admx_source' : 'salt://emet/emetfiles/EMET.admx',
-    'adml_source' : 'salt://emet/emetfiles/EMET.adml',
-} %}
+{% load_yaml as emet %}
+version: '5.2'
+admx_source: 'salt://emet/emetfiles/EMET.admx'
+adml_source: 'salt://emet/emetfiles/EMET.adml'
+{% endload %}
 
 # Define lookup dictionary of EMET version dependencies
-{% set dependencies = { 
-    '5.2' : { 'dotnet_compatibility' : ['4'],
-            },
-    '5.1' : { 'dotnet_compatibility' : ['4'],
-            },
-} %}
+{% load_yaml as dependencies %}
+'5.2':
+  dotnet_compatibility:
+    - 4
+'5.1':
+  dotnet_compatibility:
+    - 4
+{% endload %}
 
 # Over-ride defaults with user-defined settings from pillar (if available)
 {% do emet.update(salt['pillar.get']('emet:lookup', {})) %}
@@ -20,10 +22,13 @@
 {% do emet.update(dependencies[emet['version']]) %}
 
 #Get the SYSTEMROOT value from the registry
-{% set systemroot = salt['reg.read_value']('HKEY_LOCAL_MACHINE', 'SOFTWARE\Microsoft\Windows NT\CurrentVersion', 'SystemRoot').vdata %}
+{% set systemroot = salt['reg.read_value'](
+    'HKEY_LOCAL_MACHINE',
+    'SOFTWARE\Microsoft\Windows NT\CurrentVersion',
+    'SystemRoot').vdata %}
 
 # Update emet settings with required filename locations
-{% do emet.update({ 
-    'admx_name'          : systemroot + '\\PolicyDefinitions\\EMET.admx',
-    'adml_name'          : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
+{% do emet.update({
+    'admx_name' : systemroot + '\\PolicyDefinitions\\EMET.admx',
+    'adml_name' : systemroot + '\\PolicyDefinitions\\en-US\\EMET.adml',
 }) %}
