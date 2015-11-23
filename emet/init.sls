@@ -6,7 +6,7 @@
 
 #Dependencies:
 #  - Microsoft .NET 4 or greater.
-#  - Salt 2014.7.0 or greater (required for the 'test' state).
+#  - Salt 2015.8.0 or greater (required for templating the winrepo package).
 #  - Properly configured salt winrepo package manager, in a master or 
 #    masterless configuration.
 #  - Package definition for EMET from salt-winrepo must be available in the 
