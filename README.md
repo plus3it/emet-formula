@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/plus3it/emet-formula.svg)](https://travis-ci.org/plus3it/emet-formula)
+
 # emet
 
 This salt formula will install Microsoft Enhanced Mitigation Experience Toolkit
