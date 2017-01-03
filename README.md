@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/plus3it/emet-formula.svg)](https://travis-ci.org/plus3it/emet-formula)
+[![license](https://img.shields.io/github/license/plus3it/emet-formula.svg)](./LICENSE)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/plus3it/emet-formula?branch=master&svg=true)](https://ci.appveyor.com/project/plus3it/emet-formula)
 
 # emet
 
