@@ -1,12 +1,15 @@
 # Initialize 'emet' dictionary with default settings for the EMET formula
 {% load_yaml as emet %}
-version: '5.5'
+version: '5.52'
 admx_source: 'salt://emet/emetfiles/EMET.admx'
 adml_source: 'salt://emet/emetfiles/EMET.adml'
 {% endload %}
 
 # Define lookup dictionary of EMET version dependencies
 {% load_yaml as dependencies %}
+'5.52':
+  dotnet_compatibility:
+    - 4
 '5.5':
   dotnet_compatibility:
     - 4
